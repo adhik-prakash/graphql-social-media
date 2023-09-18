@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 export const userTypeDefs = `#graphql
 scalar Date
 type User {
@@ -6,11 +7,9 @@ type User {
     email:String
     createdAt:Date
     message:String
-
 }
 type Query {
     users:[User]
-
 }
 input RegisterInput{
     userName:String!
@@ -18,8 +17,16 @@ input RegisterInput{
     password:String!
     confirmPassword:String!
 }
+
+input LoginInput{
+    email:String!
+    password:String!
+    }
+
 type Mutation {
     register(input:RegisterInput):User
+    login(input:LoginInput):User
+    
 }
 
 `;

@@ -14,3 +14,10 @@
     password:string;
     confirmPassword:string;
 }
+
+export interface LoginUserInterface {
+    id:string | undefined;
+    email:string|undefined
+    password:string|undefined
+
+}
