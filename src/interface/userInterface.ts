@@ -5,6 +5,7 @@
     createdAt?:string;
     updatedAt?:string;
     message?:string
+    
 
 }
 

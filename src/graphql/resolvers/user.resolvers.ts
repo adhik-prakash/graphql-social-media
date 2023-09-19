@@ -1,7 +1,7 @@
 import {
   InputUserInterface,
   LoginUserInterface,
-  UserInterface,
+
 } from "../../interface/userInterface";
 import { User } from "../../models/user";
 import bcrypt from 'bcrypt'
@@ -70,15 +70,15 @@ export const userResolvers = {
         password:password,
         id:userLogin?.dataValues?.id,
     }
-    const token = jwt.sign(payload,process.env.JWT_SECRET_KET!, {
+    const token = jwt.sign(payload,process.env.JWT_SECRET_KEY!, {
         expiresIn:"1d"
     })
 
-    //console.log(userLogin)
+    // console.log(userLogin)
     return {
         ...userLogin.dataValues,
         token,
-        message:"user login successful"
+        message:"user login successfull"
     };
 }
 catch(error:any){

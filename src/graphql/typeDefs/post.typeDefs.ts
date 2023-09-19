@@ -3,49 +3,39 @@ import { INTEGER } from '@sequelize/core/_non-semver-use-at-your-own-risk_/diale
 scalar Date
 
 type Post {
-id:ID,
-userId:Int,
-description:String,
-likeCount:Int,
-isLiked:Boolean,
-reaction:ReactionEnum
-comments:[comment]
+    id:Int,
+    userId:Int,
+    description:String,
+    likeCount:Int,
 }
-
+type PostResponse{
+    data: Post
+    message: String
+}
 type User{
     userName:String!
     email:String!
 
 }
-type comment {
-  description:String!
-  reaction:ReactionEnum,
-  replies:[Reply]
-}
-type Reply {
-description:String!
-reaction:ReactionEnum
-}
-
-enum ReactionEnum{
-LIKE
-LOVE
-}
-
-
+ input CreatePostInput {
+    description:String!
+     
+     }
+ input UpdatePostInput {
+     description:String
+     id:Int
+     } 
+ input DeletePostInput {
+    id:Int
+        
+     }
 type Query {
     getAllPosts:[Post]
-
+    getUserPost(id:Int):[Post]
 }
-
 type Mutation {
-     createPost(input:CreatePostInput):Post
-    
-     }
-
-     input CreatePostInput {
-     userId:Int!,
-     description:String!
-     
+     createPost(input:CreatePostInput):PostResponse
+     updatePost(input:UpdatePostInput):PostResponse  
+     deletePost(input:DeletePostInput):PostResponse
      }
 `
