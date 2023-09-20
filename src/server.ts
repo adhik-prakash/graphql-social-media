@@ -1,20 +1,23 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { userTypeDefs } from "./graphql/typeDefs";
-import { userResolvers } from "./graphql/resolvers/index";
 import { sequelize } from "./config";
-import { postTypeDefs } from "./graphql/typeDefs/post.typeDefs";
-import { postResolver } from "./graphql/resolvers/post.resolvers";
+
+import { userTypeDefs, postTypeDefs, commentTypeDefs } from "./graphql/typeDefs/index";
+
+import { userResolvers, postResolver, CommentResolver } from "./graphql/resolvers/index";
+
 import {  MyContext } from "./helpers/MyContext";
-import { commentTypeDefs } from "./graphql/typeDefs/comment.typedefs";
+import { replyTypeDefs } from "./graphql/typeDefs/reply";
+import { ReplyResolver } from "./graphql/resolvers/reply.resolvers";
+
 
 const App = async () => {
   await sequelize.authenticate();
   console.log("Connection has been established successfully");
 
   const server = new ApolloServer({
-    typeDefs: [userTypeDefs,postTypeDefs,commentTypeDefs],
-    resolvers:[userResolvers,postResolver]
+    typeDefs: [userTypeDefs,postTypeDefs,commentTypeDefs,replyTypeDefs],
+    resolvers:[userResolvers,postResolver,CommentResolver,ReplyResolver]
   });
 
   // const initApp = async () => {

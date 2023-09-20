@@ -6,7 +6,7 @@ id: {
     primaryKey:true,
     autoIncrement:true
 },
-user_id:{
+userId:{
   type: DataTypes.INTEGER,
   allowNull:false,
   references:{
@@ -21,7 +21,19 @@ description: {
     type:DataTypes.STRING,
     allowNull:false,
 },
+postId :{
+  type: DataTypes.INTEGER,
+  references:{
+    model:"Posts",
+    key: "id",
+  }
+}
+},
+{
+  tableName:"Comments",
+  timestamps:true,
+  underscored:true
+}
 
-
-})
+);
 

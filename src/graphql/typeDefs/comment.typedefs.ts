@@ -1,26 +1,43 @@
-export const commentTypeDefs =`#graphql
-
+import { Comment } from './../../models/comment';
+export const commentTypeDefs = `#graphql
 type Comment {
     id:Int
-    userId:Int
-    description:String
-    
+    description:String  
 }
-
 type PostComment{
-    comment: [Comment]
-    post: [Post]
+    comment:[Comment]
+    post:[Post]
 }
-
+type MultiCommentResponse {
+    data:[Comment]
+}
+type SingleCommentResponse{
+    data: Comment
+    message: String
+}
+input PostId {
+    id:Int!
+}
 input PostCommentInput {
-        description:String!
-        id:Int!
-    }
-
+    description:String!
+    postId: Int!
+}
+input UpdateInput{
+    commentId: Int!
+    description: String
+}
+ input DeleteInput{
+    commentId: Int!
+}
+input GetCommentInput{
+    postId: Int
+}
 type Query {
-getComments:[Comment]
+    getCommentsByPostId(input:GetCommentInput):MultiCommentResponse
 }
 type Mutation {
-    createComment(input:PostCommentInput):Comment
+    addComment(input:PostCommentInput):SingleCommentResponse
+    updateComment(input:UpdateInput):SingleCommentResponse
+    deleteComment(input:DeleteInput):SingleCommentResponse
     }
-`
+`;

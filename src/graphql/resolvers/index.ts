@@ -1,2 +1,6 @@
 import { userResolvers } from "./user.resolvers";
-export {userResolvers};
+
+import { postResolver } from "./post.resolvers";
+
+import { CommentResolver } from "./comment.resolvers";
+export {userResolvers, postResolver, CommentResolver};

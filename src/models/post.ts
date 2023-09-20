@@ -1,8 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config';
 export const Post = sequelize.define("Post",{
-
-
 id: {
     type:DataTypes.INTEGER,
     primaryKey:true,
@@ -21,5 +19,11 @@ likeCount:{
     defaultValue:0,
     allowNull:false
 }
+},
+
+{
+    tableName:"Posts",
+    timestamps:true,
+    underscored:true
 }
 )

@@ -1,5 +1,3 @@
-import { INTEGER } from "@sequelize/core/_non-semver-use-at-your-own-risk_/dialects/abstract/data-types.js";
-
 
 export  interface PostInterface {
     id?:number;
@@ -9,7 +7,19 @@ export  interface PostInterface {
     updatedAt?:Date;
     message?:string
 }
-
 export interface GetAllPostInterface {
     user:number
+}
+
+export interface CreatePostInterface {
+    description:string
+}
+
+export interface UpdatePostInterface {
+    id:number;
+    description:string
+}
+export interface DeletePostInterface {
+    id:number
+
 }

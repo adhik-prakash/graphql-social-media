@@ -7,7 +7,6 @@ export const authenticate = async (bearerToken: string) => {
     if (token) {
       try {
         const user = jwt.verify(token, process.env.JWT_SECRET_KEY!);
-
         //console.log(user);
         if (user) {
           return {
