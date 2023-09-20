@@ -1,6 +1,6 @@
 import { User } from "../../models/user";
 import { Post } from "../../models/post";
-import { MyContext } from "../../interface/contextinterface";
+import { MyContext } from "../../interface/contextInterface";
 
 export const postResolver = {
   Query: {
@@ -12,24 +12,28 @@ export const postResolver = {
         throw new Error("Cannot fetch all the posts ");
       }
     },
-    getUserPost: async (parent: any, args: any) => {
+    getUserPost: async (parent: any, args: any,context:MyContext) => {
       try {
-        const allPosts = await Post.findAll({
+        if(!context.user){
+          throw new Error("Authorization token is missing")
+        }
+        const userPosts = await Post.findAll({
           where:{userId:Number(args.id)}
         });
-        return allPosts;
-      } catch (error) {
-        console.log(error)
-        throw new Error("Cannot fetch the  users posts ");
+        console.log(userPosts)
+        return userPosts
+      } catch (error:any) {
+        // console.log(error)
+        throw new Error(error.message);
       }
     },
   },
   Mutation: {
-    createPost: async (parent: any, args: any, context: any) => {
+    createPost: async (parent: any, args: any, context:MyContext) => {
         // console.log(context);
       try {
         if (!context.user) {
-          throw new Error("Authorizarion missing");
+          throw new Error("Authorizarion token is missing");
         }
         const { description } = args.input;
 
@@ -52,7 +56,7 @@ export const postResolver = {
         try{
           //checks if user is authorize or not
           if(!context.user){
-            throw new Error("Authorization required")
+            throw new Error("Authorization token is missing")
           }
             const {id,description}= args.input
 
@@ -82,7 +86,7 @@ export const postResolver = {
     context:MyContext)=>{
       try{
         if(!context.user){
-          throw new Error("Authorization required")
+          throw new Error("Authorization token is missing")
         }
         const {id}=args.input
         const deletePost = await  Post.findOne({

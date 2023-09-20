@@ -1,9 +1,8 @@
-import { MyContext } from "../../interface/contextinterface";
 import { Comment } from "../../models/comment";
 
 export const CommentResolver = {
     Query: {
-        getComments:async(parent:any,args:any,context:MyContext)=>{
+        getComments:async(parent:any,args:any,context:any)=>{
             try{
                 if(!context.user){
                     throw new Error ("Authorization is missing")
@@ -17,7 +16,7 @@ export const CommentResolver = {
         }
     },
     Mutation:{
-        addComment:async(parent:any,args:any,context:MyContext)=>{
+        addComment:async(parent:any,args:any,context:any)=>{
             try{
                if (!context.user) {
                 throw new Error("Authorization missing")
