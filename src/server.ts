@@ -7,7 +7,7 @@ import { userTypeDefs, postTypeDefs, commentTypeDefs } from "./graphql/typeDefs/
 import { userResolvers, postResolver, CommentResolver } from "./graphql/resolvers/index";
 
 import {  MyContext } from "./helpers/MyContext";
-import { replyTypeDefs } from "./graphql/typeDefs/reply";
+import { replyTypeDefs } from "./graphql/typeDefs/reply.typedefs";
 import { ReplyResolver } from "./graphql/resolvers/reply.resolvers";
 
 

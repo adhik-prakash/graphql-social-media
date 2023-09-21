@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config';
-import { Reply } from '.';
+import { Reply,Post } from './index';
 export const Comment = sequelize.define("comments",{
 id: {
     type:DataTypes.INTEGER,
@@ -31,8 +31,13 @@ description: {
   timestamps:true,
   underscored:true
 }
-
 );
+// Reply.belongsTo(Comment);
+// Comment.hasMany(Reply);
 
-Reply.belongsTo(Comment);
-Comment.hasMany(Reply);
+Comment.hasMany(Reply,{
+  foreignKey:"comment_id",
+  as:"replies"
+});
+
+

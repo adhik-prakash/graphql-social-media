@@ -20,9 +20,9 @@ export const CommentResolver = {
           where: { postId },
           include: [
             {
-              model: Reply,
-              attributes: ["id", "description", "comment_id"],
-              as: "replies"
+              model: Post,
+              attributes: ["id", "description"],
+              as: "post"
             }
           ]
         });

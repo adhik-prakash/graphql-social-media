@@ -20,6 +20,11 @@ export const postResolver = {
         }
         const userPosts = await Post.findAll({
           where: { userId: context?.user?.id },
+          include:[{
+            model:Post,
+            attributes:["id","description","postId"],
+            as:"comments"
+          }]
         });
         return userPosts;
       } catch (error: any) {

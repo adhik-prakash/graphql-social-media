@@ -16,13 +16,13 @@ export const Reply = sequelize.define("replies",{
       key:"id"
     }
   },
-  postId :{
-    type: DataTypes.INTEGER,
-    references:{
-      model:"posts",
-      key: "id",
-    }
-  },
+  // postId :{
+  //   type: DataTypes.INTEGER,
+  //   references:{
+  //     model:"posts",
+  //     key: "id",
+  //   }
+  // },
   userId: {
     type:DataTypes.INTEGER,
     allowNull:false,
@@ -36,9 +36,9 @@ export const Reply = sequelize.define("replies",{
     allowNull:false,
     },
 },
-
 {
-    timestamps:true,
-    underscored:true
+  timestamps:true,
+  underscored: true
 }
 )
+

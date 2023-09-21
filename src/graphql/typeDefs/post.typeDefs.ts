@@ -1,3 +1,4 @@
+import { Comment } from './../../models/comment';
 import { INTEGER } from '@sequelize/core/_non-semver-use-at-your-own-risk_/dialects/abstract/data-types.js';
  export const postTypeDefs = `#graphql
 scalar Date
@@ -7,6 +8,7 @@ type Post {
     userId:Int,
     description:String,
     likeCount:Int,
+    comments:[Comment]
     }
 type PostResponse{
     data: Post

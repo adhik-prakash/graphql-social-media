@@ -11,6 +11,7 @@ import { sequelize } from "../config";
     userName:{
         type:DataTypes.STRING,
         allowNull:false,
+        field:"user_name"
     },
     email: {
         type:DataTypes.STRING,
@@ -20,5 +21,10 @@ import { sequelize } from "../config";
     password: {
         type:DataTypes.STRING,
         allowNull:false,
-    }
-})
+    },
+ },
+{
+    timestamps:true,
+    underscored:true
+}
+);

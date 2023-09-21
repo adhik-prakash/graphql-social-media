@@ -3,9 +3,7 @@ export  interface PostInterface {
     id?:number;
     userId?:number;
     description?:string;
-    createdAt?:Date;
-    updatedAt?:Date;
-    message?:string
+
 }
 export interface GetAllPostInterface {
     user:number

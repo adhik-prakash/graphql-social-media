@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config';
+import { Comment } from '.';
 export const Post = sequelize.define("posts",{
 id: {
     type:DataTypes.INTEGER,
@@ -29,3 +30,15 @@ userId: {
     underscored:true
 }
 )
+
+Post.hasMany(Comment,{
+    foreignKey:"Post_id",
+    as:"comments"
+})
+
+Comment.belongsTo(Post,{
+    foreignKey:"post_id",
+    as:"post"
+  })
+  
+

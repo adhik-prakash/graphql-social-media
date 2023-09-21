@@ -5,8 +5,6 @@ type User {
     id:Int
     userName:String
     email:String
-    createdAt:Date
-    message:String
 }
 type Query {
      users:[User]

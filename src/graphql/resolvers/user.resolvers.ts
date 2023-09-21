@@ -37,7 +37,7 @@ export const userResolvers = {
           id: newUser.id,
           userName: newUser.userName,
           email: newUser.email,
-          message: "You have been registred succesfully",
+          message: "You have been registered succesfully",
         };
       } catch (error: any) {
         throw new Error(error.message);
