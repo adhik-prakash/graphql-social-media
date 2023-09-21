@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config';
-export const Reply = sequelize.define("Reply",{
+
+export const Reply = sequelize.define("replies",{
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -11,15 +12,22 @@ export const Reply = sequelize.define("Reply",{
     type: DataTypes.INTEGER,
     allowNull:false,
     references:{
-      model:"Comments",
+      model:"comments",
       key:"id"
+    }
+  },
+  postId :{
+    type: DataTypes.INTEGER,
+    references:{
+      model:"posts",
+      key: "id",
     }
   },
   userId: {
     type:DataTypes.INTEGER,
     allowNull:false,
     references:{
-      model:"Users",
+      model:"users",
       key:"id"
     }
   },
@@ -30,7 +38,6 @@ export const Reply = sequelize.define("Reply",{
 },
 
 {
-    tableName:"Replies",
     timestamps:true,
     underscored:true
 }

@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config';
-export const Comment = sequelize.define("Comment",{
+import { Reply } from '.';
+export const Comment = sequelize.define("comments",{
 id: {
     type:DataTypes.INTEGER,
     primaryKey:true,
@@ -10,30 +11,28 @@ userId:{
   type: DataTypes.INTEGER,
   allowNull:false,
   references:{
-    model:"Users",
+    model:"users",
     key:"id"
   },
-  onDelete:"CASCADE",
-  onUpdate:"CASCADE"
-},
-
-description: {
-    type:DataTypes.STRING,
-    allowNull:false,
 },
 postId :{
   type: DataTypes.INTEGER,
   references:{
-    model:"Posts",
+    model:"posts",
     key: "id",
   }
-}
+},
+description: {
+    type:DataTypes.STRING,
+    allowNull:false,
+},
 },
 {
-  tableName:"Comments",
   timestamps:true,
   underscored:true
 }
 
 );
 
+Reply.belongsTo(Comment);
+Comment.hasMany(Reply);

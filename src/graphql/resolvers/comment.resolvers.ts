@@ -1,6 +1,8 @@
 import { CommentInterface } from "../../interface/commentInterface";
 import { MyContext } from "../../interface/contextInterface";
+import { Reply } from "../../models";
 import { Comment } from "../../models/comment";
+import { Post } from "../../models/post";
 
 export const CommentResolver = {
   Query: {
@@ -16,6 +18,13 @@ export const CommentResolver = {
         }
         const comment = await Comment.findAll({
           where: { postId },
+          include: [
+            {
+              model: Reply,
+              attributes: ["id", "description", "comment_id"],
+              as: "replies"
+            }
+          ]
         });
 
         if(comment.length<=0)
@@ -37,6 +46,10 @@ export const CommentResolver = {
           throw new Error("Authorization header missing");
         }
         const { description, postId } = args.input;
+        const checkPostId = await Post.findByPk(postId)
+        if(!checkPostId){
+          throw new Error (`Post with id ${postId} is not found`)
+        }
         const newComment = await Comment.create({
           description,
           userId: context.user.id,

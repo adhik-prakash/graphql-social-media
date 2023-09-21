@@ -1,5 +1,5 @@
 import { DeleteReplyInterface, MyContext, ReplyInterface, UpdateReplyInterface } from "../../interface";
-import { Reply } from "../../models";
+import { Reply,Comment } from "../../models";
 
 export const ReplyResolver = {
   Query: {
@@ -32,12 +32,17 @@ export const ReplyResolver = {
                 throw new Error("Authorization header is missing")
         }
         const {description,commentId} = args.input
+        const checkCommentId = await Comment.findByPk(commentId);
+        if(!checkCommentId)
+        {
+            throw new Error(`Comment with id ${commentId} not Found`);
+        }
+
         const newReply = await Reply.create({
             description,
             userId:context.user.id,
             commentId
         })
-        console.log(newReply)
         return{
             data:newReply,
             message:"new reply is added"

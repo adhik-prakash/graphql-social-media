@@ -1,9 +1,7 @@
 import jwt from "jsonwebtoken";
 import { GraphQLError } from "graphql";
-export const authenticate = async (bearerToken: string) => {
+export const authenticate = async (token: string) => {
   try {
-    const token = bearerToken.split("Bearer ")[1];
-
     if (token) {
       try {
         const user = jwt.verify(token, process.env.JWT_SECRET_KEY!);

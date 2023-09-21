@@ -1,2 +1,3 @@
 
-export {Reply} from "./reply"
+export {Reply} from "./reply";
+export {Comment} from "./comment";
