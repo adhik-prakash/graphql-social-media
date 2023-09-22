@@ -1,15 +1,26 @@
-import { Comment } from './../../models/comment';
-import { INTEGER } from '@sequelize/core/_non-semver-use-at-your-own-risk_/dialects/abstract/data-types.js';
  export const postTypeDefs = `#graphql
 scalar Date
 
 type Post {
-    id:Int,
-    userId:Int,
-    description:String,
-    likeCount:Int,
-    comments:[Comment]
+    id:Int
+    userId:Int
+    description:String
+    likeCount:Int
+    #comments:[Comment]
     }
+
+type UserWithPost{
+    id:Int
+    userId:Int
+    description:String
+    likeCount:Int
+    users: User  
+    }
+
+type UserWithPosts{
+   data: [UserWithPost]
+
+}
 type PostResponse{
     data: Post
     message: String
@@ -30,7 +41,7 @@ type User{
      }
 type Query {
     AllPosts:[Post]
-    UserPost:[Post]
+    UserPost:UserWithPosts  
     }
 type Mutation {
      createPost(input:CreatePostInput):PostResponse

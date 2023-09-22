@@ -1,7 +1,11 @@
 import { User } from "../../models/user";
 import { Post } from "../../models/post";
 import { MyContext } from "../../interface/contextInterface";
-import { CreatePostInterface, DeletePostInterface, UpdatePostInterface } from "../../interface";
+import {
+  CreatePostInterface,
+  DeletePostInterface,
+  UpdatePostInterface,
+} from "../../interface";
 
 export const postResolver = {
   Query: {
@@ -20,20 +24,29 @@ export const postResolver = {
         }
         const userPosts = await Post.findAll({
           where: { userId: context?.user?.id },
-          include:[{
-            model:Post,
-            attributes:["id","description","postId"],
-            as:"comments"
-          }]
+          include: [
+            {
+              model: User,
+              // attributes:["id","","potId"],
+              as: "users",
+            },
+          ],
         });
-        return userPosts;
+        return {
+          data: userPosts
+        }
+        // console.log(userPosts);
       } catch (error: any) {
         throw new Error(error.message);
       }
     },
   },
   Mutation: {
-    createPost: async (parent: any, args: {input: CreatePostInterface}, context: MyContext) => {
+    createPost: async (
+      parent: any,
+      args: { input: CreatePostInterface },
+      context: MyContext
+    ) => {
       try {
         if (!context.user) {
           throw new Error("Authorizarion header is missing");
@@ -54,7 +67,7 @@ export const postResolver = {
     },
     updatePost: async (
       parent: any,
-      args: { input:UpdatePostInterface },
+      args: { input: UpdatePostInterface },
       context: MyContext
     ) => {
       try {
@@ -81,7 +94,7 @@ export const postResolver = {
     },
     deletePost: async (
       parent: any,
-      args: { input: DeletePostInterface},
+      args: { input: DeletePostInterface },
       context: MyContext
     ) => {
       try {

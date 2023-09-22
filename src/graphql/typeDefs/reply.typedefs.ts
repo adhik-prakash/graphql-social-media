@@ -4,34 +4,39 @@ type Reply {
   description: String
   commentId: Int
 }
+type CommentWithReply{
+    id: Int
+    description: String
+    replies: [Reply]
+}
 type MultiReplyResponse {
-  data: [Reply]
+    data: [CommentWithReply]
 }
 type SingleReplyResponse {
-  data: Reply
-  message: String
+    data: Reply
+    message: String
 }
 input GetReplyInput {
-  commentId: Int!
+    commentId: Int!
 }
 input ReplyInput {
-  description: String!
-  commentId: Int!
+    description: String!
+    commentId: Int!
 }
 input UpdateReplyInput {
-  replyId: Int!
-  description: String
+    replyId: Int!
+    description: String
 }
 input DeleteReplyInput {
-  replyId: Int!
+    replyId: Int!
 }
 type Query {
-  getRepliesByCommentId(input: GetReplyInput): MultiReplyResponse
+    commentWithReply(input: GetReplyInput): MultiReplyResponse
 }
 type Mutation {
-  addReply(input: ReplyInput): SingleReplyResponse
-  updateReply(input: UpdateReplyInput):SingleReplyResponse
-  deleteReply(input: DeleteReplyInput):SingleReplyResponse
+    addReply(input: ReplyInput): SingleReplyResponse
+    updateReply(input: UpdateReplyInput):SingleReplyResponse
+    deleteReply(input: DeleteReplyInput):SingleReplyResponse
 }
 
 

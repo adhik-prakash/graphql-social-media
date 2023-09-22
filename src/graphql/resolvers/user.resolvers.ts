@@ -10,6 +10,7 @@ export const userResolvers = {
   Query: {
     users: async () => {
       return await User.findAll();
+      
     },
   },
   Mutation: {

@@ -2,7 +2,13 @@ export const commentTypeDefs = `#graphql
     type Comment {
         id: Int
         description: String
+    }
+
+    type CommentWithReply{
+        id: Int
+        description: String
         replies: [Reply]    
+
     }
     type GetCommentWithPost{
         id: Int
@@ -10,7 +16,16 @@ export const commentTypeDefs = `#graphql
         post: Post
     }
     type GetCommentWithPosts{
-    data: [GetCommentWithPost]
+       data: [GetCommentWithPost]
+    }
+
+    type PostCommentWithReply{
+       id: Int
+       description: String
+       comments:[CommentWithReply]
+      }
+    type PostCommentAndReply{
+       data: PostCommentWithReply
     }
     type PostComment{
         comment:[Comment]
@@ -40,8 +55,14 @@ export const commentTypeDefs = `#graphql
     input GetPostInput{
         postId: Int
     }
+
+   input GetPostId{
+     postId: Int
+    }
     type Query {
-        getCommentsByPostId(input:GetPostInput):GetCommentWithPosts
+        GetCommentsByPostId(input:GetPostInput):GetCommentWithPosts
+        GetPostWithCommentAndReply(input: GetPostId): PostCommentAndReply
+
     }
     type Mutation {
         addComment(input:PostCommentInput):SingleCommentResponse

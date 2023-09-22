@@ -41,3 +41,10 @@ Comment.hasMany(Reply,{
 });
 
 
+
+// Reply.belongsTo(Comment,{
+//   foreignKey:"comment_id",
+//    as:"replies"
+// })
+
+

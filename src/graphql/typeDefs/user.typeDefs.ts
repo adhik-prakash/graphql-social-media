@@ -1,4 +1,3 @@
-import { User } from './../../models/user';
 export const userTypeDefs = `#graphql
 scalar Date
 type User {

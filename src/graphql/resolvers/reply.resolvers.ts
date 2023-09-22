@@ -3,26 +3,38 @@ import { Reply,Comment } from "../../models";
 
 export const ReplyResolver = {
   Query: {
-    getRepliesByCommentId: async (
-      parent: any,
-      args: any,
-      context: MyContext
-    ) => {
-        const {commentId} = args.input
-        try{
-            if(!context.user){
-                throw new Error("Authorization header is missing")
-            }
-            const reply = await Reply.findAll({
-                where:{commentId}
-            })
-        return{ 
-        data:reply
-        }
-        }catch(error:any){
-            throw new Error(error.message)
-        }
-    },
+  commentWithReply:async(parent:any,args:any,context:MyContext)=>{
+    const{commentId } = args.input;
+    try {
+      if (!context.user) {
+        throw new Error("Authorization header is missing");
+      }
+      const comment = await Comment.findAll({
+        where: { id: commentId },
+        include: [
+          {
+            model: Reply,
+            as: "replies"
+          }
+        ]
+      });
+
+      if(comment.length<=0)
+      {
+        throw new Error("no comment found for post")
+      }
+      // console.log(comment);
+      return {
+        data: comment,
+      };
+  }
+
+  catch(error:any)
+  {
+    throw new Error(error.message);
+  }
+  }
+    
   },
   Mutation:{
     addReply:async(parent:any,args:any,context:MyContext)=>{
